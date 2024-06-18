@@ -1,12 +1,9 @@
 name: Generate Snake
 
-# Controls when the action will run. This action runs every 6 hours.
 on:
   schedule:
     - cron: "0 */6 * * *"
-
   workflow_dispatch:
-
   push:
     branches:
       - main
@@ -18,6 +15,13 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v3
+
+      - name: Debugging step - print env vars
+        run: |
+          echo "GITHUB_USER_NAME: ${{ github.repository_owner }}"
+          echo "GITHUB_REPOSITORY: ${{ github.repository }}"
+          echo "GITHUB_SHA: ${{ github.sha }}"
+          echo "GITHUB_REF: ${{ github.ref }}"
 
       - name: Generate the snake file in './dist/'
         uses: Platane/snk@v2
